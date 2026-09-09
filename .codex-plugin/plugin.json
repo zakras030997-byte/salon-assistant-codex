@@ -1,6 +1,6 @@
 {
   "name": "svetlana-assistant",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Первый запуск и работа с клиентами, сеансами и складом по фотографиям через подключённые инструменты Google.",
   "author": {
     "name": "Zak Ras"
