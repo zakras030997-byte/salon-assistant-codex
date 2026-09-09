@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.venv/
+.env
+.env.*
+*.sqlite*
+*.db
+*token*.json
+*credential*.json
+system/BOOTSTRAP.json
+system/КОНТЕКСТ-ПРОЕКТА.json
+system/ПЕРСОНАЛИЗАЦИЯ.md
+system/operations/
+Клиенты/
+Склад/
+dist/

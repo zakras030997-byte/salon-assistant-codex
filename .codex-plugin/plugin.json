@@ -1,0 +1,27 @@
+{
+  "name": "svetlana-assistant",
+  "version": "0.6.1",
+  "description": "Первый запуск и работа с клиентами, сеансами и складом по фотографиям через подключённые инструменты Google.",
+  "author": {
+    "name": "Zak Ras"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Salon Assistant",
+    "shortDescription": "Клиенты, сеансы и склад по фото.",
+    "longDescription": "Пакет скиллов и установщик рабочего проекта. После подключения Google мастер создаёт или привязывает папки и таблицы, сохраняет персональные настройки. Реальные сценарии проверяются при передаче.",
+    "developerName": "Zak Ras",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Привет, начнём настройку.",
+      "Добавь клиента по скриншоту.",
+      "Проверь склад по фотографии."
+    ]
+  },
+  "license": "MIT",
+  "repository": "https://github.com/zakras030997-byte/salon-assistant-codex"
+}
