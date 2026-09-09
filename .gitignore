@@ -9,6 +9,7 @@ __pycache__/
 *token*.json
 *credential*.json
 system/BOOTSTRAP.json
+system/UPGRADE.json
 system/КОНТЕКСТ-ПРОЕКТА.json
 system/ПЕРСОНАЛИЗАЦИЯ.md
 system/operations/
