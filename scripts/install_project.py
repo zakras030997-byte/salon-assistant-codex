@@ -17,7 +17,10 @@ STATE_FILE = Path("system/INSTALLATION.json")
 BOOTSTRAP_FILE = Path("system/BOOTSTRAP.json")
 UPGRADE_FILE = Path("system/UPGRADE.json")
 KIND = "svetlana-project-skills"
-SUPPORTED_UPGRADES = {("0.6.2", "0.7.0")}
+SUPPORTED_UPGRADES = {
+    ("0.6.2", "0.7.0"), ("0.6.2", "0.8.0"), ("0.7.0", "0.8.0"),
+    ("0.6.2", "0.8.1"), ("0.7.0", "0.8.1"), ("0.8.0", "0.8.1"),
+}
 
 
 class InstallError(ValueError):
@@ -59,6 +62,7 @@ def payload(package: Path) -> tuple[str, dict[str, bytes]]:
         "AGENTS.md": source_file(package / "templates/PROJECT-AGENTS.md"),
         "system/assistant/.codex-plugin/plugin.json": manifest_bytes,
         "system/assistant/LICENSE": source_file(package / "LICENSE"),
+        "system/assistant/INSTALL.md": source_file(package / "INSTALL.md"),
     }
     skill_root = package / "skills"
     if skill_root.is_symlink() or not skill_root.is_dir():
@@ -343,7 +347,7 @@ def install(project: Path | str, package: Path = PACKAGE, *, upgrade: bool = Fal
 def main() -> int:
     parser = argparse.ArgumentParser(description="Установить скиллы Светланы в отдельный локальный проект.")
     parser.add_argument("--project", required=True, help="Абсолютный путь рабочей папки.")
-    parser.add_argument("--upgrade", action="store_true", help="Явно обновить установленный проект 0.6.2 до 0.7.0, сохранив настройки и пользовательские файлы.")
+    parser.add_argument("--upgrade", action="store_true", help="Явно обновить прежний проект со скиллами до версии пакета, сохранив настройки и пользовательские файлы.")
     args = parser.parse_args()
     try:
         result = install(args.project, upgrade=args.upgrade)

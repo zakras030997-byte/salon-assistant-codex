@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "binding_kind": "salon-assistant-cloud-project",
+  "plugin_id": "svetlana-assistant@salon-assistant",
+  "project_key": null,
+  "account_email": null,
+  "context_file_id": null,
+  "root_folder_id": null,
+  "phase": "needs_connection"
+}
