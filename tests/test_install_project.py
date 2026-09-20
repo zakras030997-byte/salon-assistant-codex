@@ -200,9 +200,9 @@ class InstallerTests(unittest.TestCase):
         self.assertEqual(repeated["created_files"], 0)
         self.assertEqual(self.file_snapshot(), after)
 
-    def test_explicit_upgrade_from_080_to_081_preserves_bootstrap(self):
+    def test_explicit_upgrade_from_080_to_current_preserves_bootstrap(self):
         version, old = installer.payload(PACKAGE)
-        self.assertEqual(version, "0.8.1")
+        self.assertEqual(version, "0.8.2")
         old = dict(old)
         manifest_name = "system/assistant/.codex-plugin/plugin.json"
         manifest = json.loads(old[manifest_name])
@@ -225,10 +225,41 @@ class InstallerTests(unittest.TestCase):
         result = installer.install(self.project, upgrade=True)
 
         self.assertTrue(result["upgraded"])
-        self.assertEqual(result["version"], "0.8.1")
+        self.assertEqual(result["version"], "0.8.2")
         self.assertEqual((self.project / installer.BOOTSTRAP_FILE).read_bytes(), bootstrap)
         installed_manifest = json.loads((self.project / manifest_name).read_text())
-        self.assertEqual(installed_manifest["version"], "0.8.1")
+        self.assertEqual(installed_manifest["version"], "0.8.2")
+        self.assertFalse((self.project / installer.UPGRADE_FILE).exists())
+
+    def test_explicit_upgrade_from_081_to_current_preserves_bootstrap(self):
+        version, old = installer.payload(PACKAGE)
+        self.assertEqual(version, "0.8.2")
+        old = dict(old)
+        manifest_name = "system/assistant/.codex-plugin/plugin.json"
+        manifest = json.loads(old[manifest_name])
+        manifest["version"] = "0.8.1"
+        old[manifest_name] = installer.json_bytes(manifest)
+        for relative, content in old.items():
+            target = self.project / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(content)
+        bootstrap = json.dumps({
+            "schema_version": 1, "engine": "codex-google-skills", "deployment_id": "fixture-081",
+            "account_email": "owner@example.invalid", "root_folder_id": "fixture-root",
+            "context_file_id": "fixture-context", "phase": "ready",
+        }, ensure_ascii=False, indent=2).encode()
+        (self.project / installer.BOOTSTRAP_FILE).write_bytes(bootstrap)
+        state = {"kind": installer.KIND, "version": "0.8.1",
+                 "files": {name: installer.digest(content) for name, content in sorted(old.items())}}
+        (self.project / installer.STATE_FILE).write_bytes(installer.json_bytes(state))
+
+        result = installer.install(self.project, upgrade=True)
+
+        self.assertTrue(result["upgraded"])
+        self.assertEqual(result["version"], "0.8.2")
+        self.assertEqual((self.project / installer.BOOTSTRAP_FILE).read_bytes(), bootstrap)
+        installed_manifest = json.loads((self.project / manifest_name).read_text())
+        self.assertEqual(installed_manifest["version"], "0.8.2")
         self.assertFalse((self.project / installer.UPGRADE_FILE).exists())
 
     def test_upgrade_requires_explicit_flag_and_leaves_legacy_project_unchanged(self):

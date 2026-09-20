@@ -217,6 +217,17 @@ class PluginInstallerTests(unittest.TestCase):
                 self.assertIn("единый resolver контекста", content)
                 self.assertNotIn("Если его нет, не ищи чужие проекты", content)
 
+    def test_lead_table_is_not_required_for_svetlana_scope(self):
+        first_run = (PACKAGE / "skills/svetlana-first-run/SKILL.md").read_text()
+        workspace = (PACKAGE / "skills/svetlana-first-run/references/workspace.md").read_text()
+        update_base = (PACKAGE / "skills/svetlana-update-base/SKILL.md").read_text()
+        project_rules = (PACKAGE / "templates/PROJECT-AGENTS.md").read_text()
+        self.assertIn("Таблица лидов в проект Светланы не входит", first_run)
+        self.assertIn("Таблицу «Лиды» не создавай и не делай условием готовности", workspace)
+        self.assertNotIn("| Лиды | `lead_sheet_id`", update_base)
+        self.assertIn("Таблица лидов не входит в этот проект", update_base)
+        self.assertIn("не удаляй и не меняй", project_rules)
+
     def test_marketplace_excludes_private_and_unrelated_files(self):
         source = self.package_fixture()
         marker = b"PRIVATE_FIXTURE_DO_NOT_SHIP_f2ac73"

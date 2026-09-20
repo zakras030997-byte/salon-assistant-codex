@@ -1,6 +1,6 @@
 interface:
   display_name: "Обнови базу"
-  short_description: "Лиды, клиенты и итоги работы в базах салона"
+  short_description: "Клиенты и итоги работы в базах салона"
   default_prompt: "Используй $svetlana-update-base: обнови базу по подтверждённым результатам текущей задачи."
 policy:
   allow_implicit_invocation: true

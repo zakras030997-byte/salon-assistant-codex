@@ -1,14 +1,14 @@
 {
   "name": "svetlana-assistant",
-  "version": "0.8.1",
-  "description": "Первый запуск, обновление лидов и клиентских баз, сеансы и склад по фотографиям через подключённые инструменты Google.",
+  "version": "0.8.2",
+  "description": "Первый запуск, клиентская база, сеансы и склад по фотографиям через подключённые инструменты Google.",
   "author": {
     "name": "Zak Ras"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "Salon Assistant",
-    "shortDescription": "Лиды, клиенты, сеансы и склад.",
+    "shortDescription": "Клиенты, сеансы и склад.",
     "longDescription": "Устанавливаемый плагин с шестью навыками и мастером отдельного рабочего проекта. Подключение Google и персонализация выполняются при первом запуске. Данные клиента хранятся отдельно от плагина.",
     "developerName": "Zak Ras",
     "category": "Productivity",
